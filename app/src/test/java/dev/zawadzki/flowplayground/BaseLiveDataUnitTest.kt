@@ -4,11 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import dev.zawadzki.flowplayground.livedata.test
 import org.junit.jupiter.api.Test
 
-abstract class BaseLiveDataUnitTest {
+abstract class BaseLiveDataUnitTest : BaseUnitTest {
     abstract val liveData: MutableLiveData<String>
 
     @Test
-    fun `should consume value if emitted before collecting`() {
+    override fun `should consume value if emitted before collecting`() {
         liveData.postValue(ACTION_1)
 
         liveData.test {
@@ -17,7 +17,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume value if emitted after collecting`() {
+    override fun `should consume value if emitted after collecting`() {
         liveData.test {
             liveData.postValue(ACTION_1)
 
@@ -26,7 +26,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume both values if emitted after collecting`() {
+    override fun `should consume both values if emitted after collecting`() {
         liveData.test {
             liveData.postValue(ACTION_1)
             liveData.postValue(ACTION_2)
@@ -36,7 +36,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume both same values if emitted after collecting`() {
+    override fun `should consume both same values if emitted after collecting`() {
         liveData.test {
             liveData.postValue(ACTION_1)
             liveData.postValue(ACTION_1)
@@ -46,7 +46,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume last value if multiple emitted before collecting`() {
+    override fun `should consume last value if multiple emitted before collecting`() {
         liveData.postValue(ACTION_1)
         liveData.postValue(ACTION_2)
 
@@ -56,7 +56,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume values by all consumers if emitted before collecting`() {
+    override fun `should consume values by all consumers if emitted before collecting`() {
         liveData.postValue(ACTION_1)
 
         liveData.test observer1@{
@@ -69,7 +69,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume values by all consumers if emitted after collecting`() {
+    override fun `should consume values by all consumers if emitted after collecting`() {
         liveData.test observer1@{
             liveData.test observer2@{
                 liveData.postValue(ACTION_1)
@@ -80,7 +80,7 @@ abstract class BaseLiveDataUnitTest {
     }
 
     @Test
-    fun `should consume value by second consumer if already consumed by first observer`() {
+    override fun `should consume value by second consumer if already consumed by first observer`() {
         liveData.test observer1@{
             liveData.postValue(ACTION_1)
 
