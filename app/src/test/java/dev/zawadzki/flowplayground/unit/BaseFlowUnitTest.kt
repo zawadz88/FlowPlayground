@@ -2,14 +2,12 @@
 
 package dev.zawadzki.flowplayground.unit
 
+import dev.zawadzki.flowplayground.coroutine.runUnconfinedTest
+import dev.zawadzki.flowplayground.coroutine.testFlow
 import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_1
 import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_2
-import dev.zawadzki.flowplayground.coroutine.testFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 
 abstract class BaseFlowUnitTest : BaseUnitTest {
@@ -108,9 +106,5 @@ abstract class BaseFlowUnitTest : BaseUnitTest {
                 }
             }
         }
-
-    protected fun runUnconfinedTest(
-        testBody: suspend TestScope.() -> Unit
-    ) = runTest(context = UnconfinedTestDispatcher(), dispatchTimeoutMs = 10L, testBody = testBody)
 
 }

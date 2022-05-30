@@ -2,11 +2,12 @@
 
 package dev.zawadzki.flowplayground.unit
 
+import dev.zawadzki.flowplayground.coroutine.runUnconfinedTest
+import dev.zawadzki.flowplayground.coroutine.testFlow
+import dev.zawadzki.flowplayground.livedata.InstantTaskExecutorExtension
 import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_0
 import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_1
 import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_2
-import dev.zawadzki.flowplayground.coroutine.testFlow
-import dev.zawadzki.flowplayground.livedata.InstantTaskExecutorExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.jupiter.api.Test

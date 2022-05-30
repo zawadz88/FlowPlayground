@@ -2,9 +2,13 @@ package dev.zawadzki.flowplayground.coroutine
 
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 
 suspend fun <T> CoroutineScope.testFlow(
@@ -29,3 +33,8 @@ class TestCollector<T> {
         assertEquals(values.toList(), emissions)
     }
 }
+
+@OptIn(ExperimentalCoroutinesApi::class)
+fun runUnconfinedTest(
+    testBody: suspend TestScope.() -> Unit
+) = runTest(context = UnconfinedTestDispatcher(), dispatchTimeoutMs = 10L, testBody = testBody)
