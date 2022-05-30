@@ -1,10 +1,10 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package dev.zawadzki.flowplayground
+package dev.zawadzki.flowplayground.unit
 
-import dev.zawadzki.flowplayground.BaseUnitTest.Companion.ACTION_0
-import dev.zawadzki.flowplayground.BaseUnitTest.Companion.ACTION_1
-import dev.zawadzki.flowplayground.BaseUnitTest.Companion.ACTION_2
+import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_0
+import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_1
+import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_2
 import dev.zawadzki.flowplayground.coroutine.testFlow
 import dev.zawadzki.flowplayground.livedata.InstantTaskExecutorExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,9 +1,9 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package dev.zawadzki.flowplayground
+package dev.zawadzki.flowplayground.unit
 
-import dev.zawadzki.flowplayground.BaseUnitTest.Companion.ACTION_1
-import dev.zawadzki.flowplayground.BaseUnitTest.Companion.ACTION_2
+import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_1
+import dev.zawadzki.flowplayground.unit.BaseUnitTest.Companion.ACTION_2
 import dev.zawadzki.flowplayground.coroutine.testFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow

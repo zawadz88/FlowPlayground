@@ -1,18 +1,17 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package dev.zawadzki.flowplayground
+package dev.zawadzki.flowplayground.unit
 
 import dev.zawadzki.flowplayground.livedata.InstantTaskExecutorExtension
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.Channel.Factory.UNLIMITED
 import kotlinx.coroutines.flow.receiveAsFlow
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(InstantTaskExecutorExtension::class)
-class UnlimitedChannelReceivedAsFlowUnitTest : BaseFlowUnitTest() {
+class RendezvousChannelReceivedAsFlowUnitTest : BaseFlowUnitTest() {
 
-    private val channel = Channel<String>(UNLIMITED)
+    private val channel = Channel<String>()
 
     override val flow = channel.receiveAsFlow()
 

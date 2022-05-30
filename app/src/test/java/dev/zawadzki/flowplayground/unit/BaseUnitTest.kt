@@ -1,4 +1,4 @@
-package dev.zawadzki.flowplayground
+package dev.zawadzki.flowplayground.unit
 
 interface BaseUnitTest {
 

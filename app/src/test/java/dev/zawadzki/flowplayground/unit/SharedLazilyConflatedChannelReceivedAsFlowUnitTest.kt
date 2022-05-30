@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package dev.zawadzki.flowplayground
+package dev.zawadzki.flowplayground.unit
 
 import dev.zawadzki.flowplayground.livedata.InstantTaskExecutorExtension
 import kotlinx.coroutines.CoroutineScope
