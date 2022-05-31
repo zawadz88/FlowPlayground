@@ -57,12 +57,8 @@ abstract class BaseIntegrationTest {
     }
 
     @Test
-    fun `should have one value if posted in ViewModel init`() = launchTest(postOnInit = true) {
-        it.onActivity { activity ->
-            activity.postAction(ACTION_1)
-        }
-
-        assertEquals(listOf(INIT_ACTION, ACTION_1), TestActivity.receivedValues)
+    fun `should have value posted in ViewModel init`() = launchTest(postOnInit = true) {
+        assertEquals(listOf(INIT_ACTION), TestActivity.receivedValues)
     }
 
     @Test
@@ -103,12 +99,10 @@ abstract class BaseIntegrationTest {
         launchTest(postOnInit = true) {
             it.onActivity { activity ->
                 createFragment(activity)
-
-                activity.postAction(ACTION_1)
             }
 
-            assertEquals(listOf(INIT_ACTION, ACTION_1), TestActivity.receivedValues)
-            assertEquals(listOf(INIT_ACTION, ACTION_1), TestFragment.receivedValues)
+            assertEquals(listOf(INIT_ACTION), TestActivity.receivedValues)
+            assertEquals(listOf(INIT_ACTION), TestFragment.receivedValues)
         }
 
     @Test

@@ -18,6 +18,8 @@ class TestViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val liveEvent = LiveEvent<String>()
 
+    val liveDataWithEventWrapper = MutableLiveData<Event<String>>()
+
     val mutableSharedFlow: MutableSharedFlow<String> = MutableSharedFlow()
 
     val mutableSharedFlowWithReplay: MutableSharedFlow<String> = MutableSharedFlow(replay = 1)
@@ -45,6 +47,8 @@ class TestViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     val sharedWhileSubscribedConflatedChannelReceivedAsFlow =
         sharedWhileSubscribedConflatedChannel.receiveAsFlow()
             .shareIn(viewModelScope, started = SharingStarted.WhileSubscribed(), replay = 1)
+
+    val mutableSharedFlowWithReplayAndEventWrapper: MutableSharedFlow<Event<String>> = MutableSharedFlow(replay = 1)
 
     init {
         val postOnInit = savedStateHandle.get<Boolean>(POST_ACTION_ON_INIT_EXTRA_NAME) ?: false

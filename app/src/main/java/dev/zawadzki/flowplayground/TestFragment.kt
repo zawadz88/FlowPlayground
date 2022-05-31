@@ -14,7 +14,7 @@ class TestFragment : Fragment(R.layout.fragment_test) {
         super.onViewCreated(view, savedInstanceState)
 
         requireNotNull(requireArguments().getParcelable<TestConfiguration>(ARG_NAME))
-            .observe(activityViewModel, viewLifecycleOwner, receivedValues::add)
+            .observe(activityViewModel, viewLifecycleOwner, "TestFragment", receivedValues::add)
     }
 
     companion object {

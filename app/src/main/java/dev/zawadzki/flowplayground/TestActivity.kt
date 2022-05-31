@@ -15,7 +15,7 @@ class TestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_test)
 
         requireNotNull(intent.getParcelableExtra<TestConfiguration>(CONFIGURATION_EXTRA_NAME))
-            .observe(viewModel, this, receivedValues::add)
+            .observe(viewModel, this, "TestActivity", receivedValues::add)
     }
 
     companion object {

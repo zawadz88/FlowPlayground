@@ -19,6 +19,7 @@ sealed class TestConfiguration : Parcelable {
         override fun observe(
             viewModel: TestViewModel,
             owner: LifecycleOwner,
+            scope: String,
             actionOnReceive: (String) -> Unit
         ) {
             liveData(viewModel).observe(owner, actionOnReceive::invoke)
@@ -37,6 +38,29 @@ sealed class TestConfiguration : Parcelable {
         @Parcelize
         object LiveEvent : TestConfiguration.LiveDatas() {
             override fun liveData(viewModel: TestViewModel) = viewModel.liveEvent
+        }
+
+        @Parcelize
+        object LiveDataWithEventWrapper : TestConfiguration.LiveDatas() {
+
+            override fun liveData(viewModel: TestViewModel) = throw IllegalStateException()
+
+            override fun observe(
+                viewModel: TestViewModel,
+                owner: LifecycleOwner,
+                scope: String,
+                actionOnReceive: (String) -> Unit
+            ) {
+                viewModel.liveDataWithEventWrapper.observeEvent(
+                    owner,
+                    scope,
+                    actionOnReceive::invoke
+                )
+            }
+
+            override fun postAction(viewModel: TestViewModel, action: String) {
+                viewModel.liveDataWithEventWrapper.postValue(Event(action))
+            }
         }
     }
 
@@ -58,6 +82,7 @@ sealed class TestConfiguration : Parcelable {
         override fun observe(
             viewModel: TestViewModel,
             owner: LifecycleOwner,
+            scope: String,
             actionOnReceive: (String) -> Unit
         ) {
             owner.lifecycleScope.launch {
@@ -192,6 +217,36 @@ sealed class TestConfiguration : Parcelable {
                 viewModel.sharedWhileSubscribedConflatedChannel.send(action)
             }
         }
+
+        @Parcelize
+        object MutableSharedFlowWithReplayAndEventWrapper : TestConfiguration.Flows() {
+
+            override fun flow(viewModel: TestViewModel): Flow<String> =
+                throw IllegalArgumentException()
+
+            override suspend fun postActionInternal(
+                viewModel: TestViewModel,
+                action: String
+            ) {
+                viewModel.mutableSharedFlowWithReplayAndEventWrapper.emit(Event(action))
+            }
+
+            override fun observe(
+                viewModel: TestViewModel,
+                owner: LifecycleOwner,
+                scope: String,
+                actionOnReceive: (String) -> Unit
+            ) {
+                owner.lifecycleScope.launch {
+                    owner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        viewModel.mutableSharedFlowWithReplayAndEventWrapper.collectEvent(
+                            scope,
+                            actionOnReceive::invoke
+                        )
+                    }
+                }
+            }
+        }
     }
 
     abstract fun postAction(viewModel: TestViewModel, action: String)
@@ -199,6 +254,7 @@ sealed class TestConfiguration : Parcelable {
     abstract fun observe(
         viewModel: TestViewModel,
         owner: LifecycleOwner,
+        scope: String = "",
         actionOnReceive: (String) -> Unit
     )
 }
